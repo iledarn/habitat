@@ -33,7 +33,7 @@ use self::hooks::{HookTable, HOOK_PERMISSIONS};
 use config::gconfig;
 use error::{Error, Result, SupError};
 use health_check::{self, CheckResult};
-use service_config::ServiceConfig;
+use manager::service::config::ServiceConfig;
 use supervisor::Supervisor;
 use util::path::busybox_paths;
 use util::users as hab_users;
@@ -204,7 +204,7 @@ impl Package {
     fn remove_symlink<P: AsRef<Path>>(p: P) -> Result<()> {
         let p = p.as_ref();
         if !p.exists() {
-            return Ok(())
+            return Ok(());
         }
         // note: we're NOT using p.metadata() here as that will follow the
         // symlink, which returns smd.file_type().is_symlink() == false in all cases.
@@ -249,10 +249,8 @@ impl Package {
     }
 
     pub fn config_from(&self) -> PathBuf {
-        gconfig().config_from().as_ref().map_or(
-            self.pkg_install.installed_path().clone(),
-            |p| PathBuf::from(p)
-        )
+        gconfig().config_from().as_ref().map_or(self.pkg_install.installed_path().clone(),
+                                                |p| PathBuf::from(p))
     }
 
     /// Return an iterator of the configuration file names to render.

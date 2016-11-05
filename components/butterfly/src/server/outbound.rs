@@ -96,6 +96,8 @@ impl<'a> Outbound<'a> {
 
             self.server.update_swim_round();
 
+            let long_wait = self.timing.next_protocol_period();
+
             let check_list = self.server
                 .member_list
                 .check_list(self.server
@@ -120,6 +122,11 @@ impl<'a> Outbound<'a> {
                         thread::sleep(Duration::from_millis(wait_time.num_milliseconds() as u64));
                     }
                 }
+            }
+
+            if SteadyTime::now() <= long_wait {
+                let wait_time = long_wait - SteadyTime::now();
+                thread::sleep(Duration::from_millis(wait_time.num_milliseconds() as u64));
             }
         }
     }

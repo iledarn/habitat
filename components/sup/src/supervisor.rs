@@ -139,7 +139,6 @@ impl RuntimeConfig {
     }
 }
 
-
 #[derive(Debug)]
 pub struct Supervisor {
     pub pid: Option<Pid>,
@@ -238,10 +237,7 @@ impl Supervisor {
                 try!(signals::send_signal_to_pid(*pid, signals::Signal::SIGTERM));
                 true
             }
-            None => {
-                outputln!(preamble & self.package_ident.name, "Already stopped");
-                false
-            }
+            None => false,
         };
         if wait {
             let stop_time = SteadyTime::now() + Duration::seconds(8);
@@ -304,8 +300,6 @@ impl Supervisor {
     }
 
     /// if the child process exists, check it's status via waitpid().
-    ///
-    /// Returns true if the process is still running, false if it has died.
     pub fn check_process(&mut self) -> Result<()> {
         if self.pid.is_none() {
             return Ok(());

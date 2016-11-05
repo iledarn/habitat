@@ -39,6 +39,7 @@
 //! * [The Habitat Command Line Reference](command)
 //! * [The Habitat Supervisor Sidecar; http interface to promises](sidecar)
 
+extern crate habitat_butterfly as butterfly;
 extern crate habitat_core as hcore;
 extern crate habitat_common as common;
 extern crate habitat_depot_client as depot_client;
@@ -267,16 +268,17 @@ pub mod error;
 pub mod command;
 pub mod util;
 pub mod package;
-pub mod topology;
-pub mod state_machine;
-pub mod sidecar;
+// pub mod topology;
+// pub mod state_machine;
+// pub mod sidecar;
 pub mod health_check;
 pub mod config;
-pub mod service_config;
-pub mod census;
-pub mod gossip;
-pub mod election;
+// pub mod service_config;
+// pub mod census;
+// pub mod gossip;
+// pub mod election;
 pub mod supervisor;
+pub mod manager;
 
 use std::env;
 use std::path::PathBuf;
