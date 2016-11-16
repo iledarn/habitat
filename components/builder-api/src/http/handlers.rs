@@ -17,6 +17,7 @@
 use bodyparser;
 use depot::server::check_origin_access;
 use hab_core::package::Plan;
+use hab_core::event::*;
 use hab_net;
 use hab_net::http::controller::*;
 use hab_net::routing::Broker;
@@ -162,6 +163,8 @@ pub fn ignore_invitation(req: &mut Request) -> IronResult<Response> {
 
 /// Create a new project as the authenticated user and associated to the given origin
 pub fn project_create(req: &mut Request) -> IronResult<Response> {
+    record_event(EVENT_BUILDER_PROJECT_CREATE);
+
     let mut request = ProjectCreate::new();
     let mut project = Project::new();
     let mut origin_get = OriginGet::new();

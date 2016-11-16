@@ -22,6 +22,10 @@ time = "*"
 toml = "*"
 url = "*"
 
+[dependencies.uuid]
+version = "*"
+features = ["rustc-serialize", "v4"]
+
 [target.'cfg(not(windows))'.dependencies]
 users = "*"
 

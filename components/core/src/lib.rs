@@ -29,6 +29,7 @@ extern crate libsodium_sys;
 extern crate tempdir;
 extern crate time;
 extern crate toml;
+extern crate uuid;
 extern crate url as extern_url;
 
 #[cfg(not(windows))]
@@ -46,6 +47,7 @@ pub mod url;
 pub mod util;
 pub mod crypto;
 pub mod os;
+pub mod event;
 
 pub use os::filesystem;
 pub use os::users;
