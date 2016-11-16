@@ -171,6 +171,7 @@ impl PackageInstall {
         let mut run_path = String::new();
         for path in try!(self.paths()) {
             run_path.push_str(&path.to_string_lossy());
+            run_path.push(':');
             idents.insert(self.ident().clone());
         }
         let deps: Vec<PackageInstall> = try!(self.load_deps());
